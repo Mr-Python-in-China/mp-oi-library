@@ -45,7 +45,6 @@
     "pack": "vsce pack --no-yarn -o mp-oi-library.vsix",
     "format:check": "prettier -c .",
     "format:write": "prettier -w .",
-    "testlib": "yarn run test-compile-lib && ./library/test.bin  --gtest_repeat=100 --gtest_break_on_failure",
     "debug-compile-lib": "g++ -std=c++14 -Wall -Wextra -g -I./library -o ./library/test.bin ./library/test/main.cpp -lgtest -lgtest_main",
     "test-compile-lib": "g++ -std=c++14 -Wall -Wextra -O3 -I./library -o ./library/test.bin ./library/test/main.cpp -lgtest -lgtest_main"
   },

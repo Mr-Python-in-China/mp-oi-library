@@ -10,4 +10,6 @@ tsconfig.json
 webpack.config.js
 yarn.lock
 library/test/
-library/test.bin
+library/test.exe
+library/test.d
+.github/
