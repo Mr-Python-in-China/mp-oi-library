@@ -1,0 +1,75 @@
+{
+  "name": "mp-oi-library",
+  "displayName": "mp-oi-library",
+  "description": "Some algorithms and data structures template for competitive programming.",
+  "version": "0.0.0",
+  "repository": "https://github.com/Mr-Python-in-China/mp-oi-library",
+  "license": "LGPL-3.0-only",
+  "author": {
+    "name": "MrPython",
+    "email": "mrpython@qq.com"
+  },
+  "publisher": "MrPython",
+  "type": "module",
+  "engines": {
+    "vscode": "^1.0.0"
+  },
+  "categories": [
+    "Snippets"
+  ],
+  "activationEvents": [],
+  "main": "./dist/extension.cjs",
+  "contributes": {
+    "commands": [
+      {
+        "command": "mp-oi-library.chooseInclude",
+        "title": "Choose file to include",
+        "category": "Mrpython Library"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "mp-oi-library.chooseInclude",
+          "when": "resourceLangId == cpp"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "yarn run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production",
+    "lint": "eslint src",
+    "pack": "vsce pack --no-yarn -o mp-oi-library.vsix",
+    "format:check": "prettier -c .",
+    "format:write": "prettier -w .",
+    "testlib": "yarn run test-compile-lib && ./library/test.bin  --gtest_repeat=100 --gtest_break_on_failure",
+    "debug-compile-lib": "g++ -std=c++14 -Wall -Wextra -g -I./library -o ./library/test.bin ./library/test/main.cpp -lgtest -lgtest_main",
+    "test-compile-lib": "g++ -std=c++14 -Wall -Wextra -O3 -I./library -o ./library/test.bin ./library/test/main.cpp -lgtest -lgtest_main"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.7.3",
+    "@typescript-eslint/parser": "^6.7.3",
+    "@vscode/vsce": "^3.1.0",
+    "eslint": "^8.50.0",
+    "prettier": "^3.3.3",
+    "ts-loader": "^9.4.4",
+    "typescript": "^5.2.2",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4"
+  },
+  "prettier": {
+    "printWidth": 80,
+    "tabWidth": 2,
+    "useTabs": false,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "none",
+    "bracketSpacing": true,
+    "arrowParens": "avoid"
+  },
+  "packageManager": "yarn@4.5.0"
+}

@@ -1,0 +1,13 @@
+.vscode/
+.yarn/
+node_modules/
+src/
+.clang-format
+.eslintrc.json
+.gitignore
+.yarnrc.yml
+tsconfig.json
+webpack.config.js
+yarn.lock
+library/test/
+library/test.bin
