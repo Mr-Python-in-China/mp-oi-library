@@ -68,9 +68,9 @@ template <typename T, typename MergeFunction> class typical_segment_tree {
     reverse(data.begin(), data.end());
     build();
   }
-  typical_segment_tree(size_t n, T const& init,
+  typical_segment_tree(size_t len, T const& init,
                        MergeFunction mergeFun = MergeFunction())
-      : data(n, init), size(n, 1), n(n), merge(mergeFun) {
+      : data(len, init), size(len, 1), n(len), merge(mergeFun) {
     build();
   }
   /**
