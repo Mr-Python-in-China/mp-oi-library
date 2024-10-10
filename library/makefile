@@ -1,12 +1,12 @@
+STDCXX ?= c++14
 
-CXX = g++
+CXX ?= g++
 
-CXXFLAGS = -Wall -Wextra -g -I. -MMD
+CXXFLAGS = -Wall -Wextra -g -I. -MMD -std=$(STDCXX)
 
 TARGET = test.exe
 
 GTEST_LIBS = -lgtest -lgtest_main -pthread
-
 
 LDFLAGS = $(GTEST_LIBS)
 

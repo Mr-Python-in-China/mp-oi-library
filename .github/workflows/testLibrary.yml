@@ -1,0 +1,33 @@
+name: test library
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  linux-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        cxx: [g++, clang++]
+        stdcxx: ['c++14', 'c++17', 'c++20']
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install dependencies
+        run: sudo apt update && sudo apt install g++ clang make libgtest-dev -y
+      - name: Build
+        run: |
+          cd library
+          make
+        env:
+          CXX: ${{ matrix.cxx }}
+          STDCXX: ${{ matrix.stdcxx }}
+      - name: Test
+        run: |
+          cd library
+          ./test.exe
