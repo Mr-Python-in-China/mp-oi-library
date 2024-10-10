@@ -14,12 +14,12 @@ using std::size_t;
  * 一颗 无标记线段树 模板。
  * @tparam T 元素类型
  * @tparam MergeFunction 合并运算函数，对于函数 `F` 应满足结合律
- */ 
+ */
 template <typename T, typename MergeFunction> class typical_segment_tree {
   std::vector<T> data;
   std::vector<size_t> size;
   size_t n;
-  MergeFunction merge;
+  MergeFunction const merge;
   void build(void) {
     data.reserve(2 * n - 1), size.reserve(2 * n - 1);
     for (size_t i = n; i < 2 * n - 1; ++i) {
@@ -34,7 +34,7 @@ template <typename T, typename MergeFunction> class typical_segment_tree {
   template <typename Fun>
   void set_impl(size_t c, Fun const& operate, size_t pos) {
     if (size[pos] == 1) {
-      data[pos] = operate((T const&)data[pos]);
+      data[pos] = operate((typename std::vector<T>::const_reference)data[pos]);
       return;
     }
     size_t m = size[pos * 2 + 1];

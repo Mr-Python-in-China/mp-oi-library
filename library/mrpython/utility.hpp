@@ -33,12 +33,17 @@ struct gcd {
   }
 };
 template <typename Comp> struct compare_iterator {
-  Comp comp;
+  Comp const comp;
   compare_iterator(Comp const& c): comp(c) {}
   template <typename Iterator>
   Iterator operator()(Iterator a, Iterator b) const {
     return comp(*a, *b) ? a : b;
   }
+};
+template <typename T> struct const_function {
+  T const value;
+  const_function(T const& v): value(v) {}
+  template <typename... Args> T operator()(Args...) const { return value; }
 };
 }  // namespace mrpython
 #endif  // MP_LIBRARY_UTILITY_HPP

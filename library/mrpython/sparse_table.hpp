@@ -18,7 +18,7 @@ using std::size_t;
  */
 template <typename T, typename MergeFunction> class sparse_table {
   std::vector<std::vector<T>> table;
-  MergeFunction merge;
+  MergeFunction const merge;
 
  public:
   template <typename InputIterator>
