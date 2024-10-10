@@ -1,6 +1,7 @@
 #ifndef MP_LIBRARY_UTILITY_HPP
 #define MP_LIBRARY_UTILITY_HPP
 #include <algorithm>
+#include <limits>
 
 namespace mrpython {
 struct max {
@@ -39,6 +40,5 @@ template <typename Comp> struct compare_iterator {
     return comp(*a, *b) ? a : b;
   }
 };
-
 }  // namespace mrpython
 #endif  // MP_LIBRARY_UTILITY_HPP

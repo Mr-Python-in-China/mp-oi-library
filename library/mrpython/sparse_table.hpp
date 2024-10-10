@@ -1,3 +1,4 @@
+#include "mrpython/bits.hpp"
 #include "mrpython/utility.hpp"
 
 #ifndef MP_LIBRARY_SPARSE_TABLE_HPP
@@ -36,8 +37,7 @@ template <typename T, typename MergeFunction> class sparse_table {
     table.shrink_to_fit();
   }
   T get(size_t l, size_t r) const {
-    size_t k =
-        std::numeric_limits<long long int>::digits - __builtin_clzll(r - l);
+    size_t k = int_log2(r - l);
     return merge(table[k][l], table[k][r - ((size_t)1 << k)]);
   }
 };

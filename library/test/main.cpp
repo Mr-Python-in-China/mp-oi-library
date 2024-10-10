@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "test/all.hpp"
+#include "all.hpp"
 
 GTEST_API_ int main(int argc, char** argv) {
   testing::InitGoogleTest(&argc, argv);

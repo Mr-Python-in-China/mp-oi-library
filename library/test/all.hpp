@@ -1,1 +1,2 @@
-#include "test/sparse_table/all.hpp"
+#include "sparse_table/all.hpp"
+#include "typical_segment_tree/all.hpp"

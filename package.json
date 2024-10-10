@@ -44,9 +44,7 @@
     "lint": "eslint src",
     "pack": "vsce pack --no-yarn -o mp-oi-library.vsix",
     "format:check": "prettier -c .",
-    "format:write": "prettier -w .",
-    "debug-compile-lib": "g++ -std=c++14 -Wall -Wextra -g -I./library -o ./library/test.bin ./library/test/main.cpp -lgtest -lgtest_main",
-    "test-compile-lib": "g++ -std=c++14 -Wall -Wextra -O3 -I./library -o ./library/test.bin ./library/test/main.cpp -lgtest -lgtest_main"
+    "format:write": "prettier -w ."
   },
   "devDependencies": {
     "@types/vscode": "^1.0.0",
