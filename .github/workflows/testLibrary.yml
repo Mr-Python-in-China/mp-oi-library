@@ -19,7 +19,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Install dependencies
-        run: sudo apt update && sudo apt install g++ clang make libgtest-dev -y
+        run: sudo apt-get update && sudo apt-get install g++ clang make libgtest-dev -y
       - name: Build
         run: |
           cd library
