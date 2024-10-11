@@ -12,6 +12,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 22
+      - name: Checkout
+        uses: actions/checkout@v4
       - name: Install dependencies
         run: |
           sudo corepack enable
