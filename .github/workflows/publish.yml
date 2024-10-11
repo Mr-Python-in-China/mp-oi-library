@@ -20,3 +20,5 @@ jobs:
           corepack yarn
       - name: Publish
         run: yarn run publish
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
