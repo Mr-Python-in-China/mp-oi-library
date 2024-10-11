@@ -1,0 +1,20 @@
+name: publish
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    runs-on: ubuntu-lastest
+    steps:
+      - name: Setup nodejs
+        uses: actions/setup-node@v1
+        with:
+          node-version: 22
+      - name: Install dependencies
+        run: |
+          sudo corepack enable
+          corepack yarn
+      - name: Publish
+        run: yarn run publish
