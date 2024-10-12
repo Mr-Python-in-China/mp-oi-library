@@ -2,7 +2,7 @@ STDCXX ?= c++14
 
 CXX ?= g++
 
-CXXFLAGS = -Wall -Wextra -g -I. -MMD -std=$(STDCXX) -O2
+CXXFLAGS = -I. -MMD -std=$(STDCXX) -O2 -pedantic -Wall -Wextra -Wshadow -Wno-unused-parameter
 
 TARGET = test.exe
 
