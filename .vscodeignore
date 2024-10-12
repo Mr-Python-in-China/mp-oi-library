@@ -13,3 +13,4 @@ library/test/
 library/test.exe
 library/test.d
 .github/
+**/*.gch

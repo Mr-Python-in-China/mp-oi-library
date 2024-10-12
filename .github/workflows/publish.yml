@@ -4,6 +4,9 @@ on:
   release:
     types: [published]
 
+permissions:
+  contents: write
+
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -18,7 +21,14 @@ jobs:
         run: |
           sudo corepack enable
           corepack yarn
-      - name: Publish
+      - name: Package
+        run: yarn run pack
+      - name: Upload to Github Releases
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: mp-oi-library.vsix
+      - name: Publish to VS Code Marketplace
         run: yarn run publish
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
