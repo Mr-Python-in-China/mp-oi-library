@@ -4,8 +4,6 @@
 #ifndef MP_LIBRARY_SEGMENT_TREE_HPP
 #define MP_LIBRARY_SEGMENT_TREE_HPP
 #include <algorithm>
-#include <iterator>
-#include <utility>
 #include <vector>
 
 namespace mrpython {
@@ -13,7 +11,7 @@ using std::size_t;
 /**
  * 一颗 无标记线段树 模板。
  * @tparam T 元素类型
- * @tparam MergeFunction 合并运算函数，对于函数 `F` 应满足结合律
+ * @tparam MergeFunction 合并运算函数
  */
 template <typename T, typename MergeFunction> class typical_segment_tree {
   std::vector<T> data;
@@ -31,10 +29,10 @@ template <typename T, typename MergeFunction> class typical_segment_tree {
     std::reverse(data.begin(), data.end());
     std::reverse(size.begin(), size.end());
   }
-  template <typename Fun>
-  void set_impl(size_t c, Fun const& operate, size_t pos) {
+  template <typename Operate>
+  void set_impl(size_t c, Operate const& operate, size_t pos) {
     if (size[pos] == 1) {
-      data[pos] = operate((typename std::vector<T>::const_reference)data[pos]);
+      data[pos] = operate((T const&)data[pos]);
       return;
     }
     size_t m = size[pos * 2 + 1];
@@ -50,15 +48,18 @@ template <typename T, typename MergeFunction> class typical_segment_tree {
     if (l < m && r > m)
       return merge(get_impl(l, m, pos * 2 + 1),
                    get_impl(0, r - m, pos * 2 + 2));
-    if (l < m) return get_impl(l, r, pos * 2 + 1);
-    if (r > m) return get_impl(l - m, r - m, pos * 2 + 2);
-    throw;
+    else if (l < m)
+      return get_impl(l, r, pos * 2 + 1);
+    else if (r > m)
+      return get_impl(l - m, r - m, pos * 2 + 2);
+    else
+      __builtin_unreachable();
   }
 
  public:
   template <typename InputIterator>
   typical_segment_tree(InputIterator first, InputIterator last,
-                       MergeFunction mergeFun = MergeFunction())
+                       MergeFunction const& mergeFun = MergeFunction())
       : data(first, last),
         size(data.size(), 1),
         n(data.size()),
@@ -69,7 +70,7 @@ template <typename T, typename MergeFunction> class typical_segment_tree {
     build();
   }
   typical_segment_tree(size_t len, T const& init,
-                       MergeFunction mergeFun = MergeFunction())
+                       MergeFunction const& mergeFun = MergeFunction())
       : data(len, init), size(len, 1), n(len), merge(mergeFun) {
     build();
   }
