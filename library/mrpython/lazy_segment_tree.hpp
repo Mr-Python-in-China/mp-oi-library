@@ -122,5 +122,30 @@ using lazy_segment_tree_add_add =
     lazy_segment_tree<T, std::plus<T>, T,
                       lazy_segment_tree_add_add_operate_function<T>,
                       std::plus<T>>;
+
+template <typename NodeStruct> class lazy_segment_tree_from_node {
+  using T = typename NodeStruct::T;
+  using Lazy = typename NodeStruct::Lazy;
+  struct MergeFunction {
+    T operator()(T const& a, T const& b) const {
+      return NodeStruct::merge_data(a, b);
+    }
+  };
+  struct OperateFunction {
+    T operator()(Lazy const& lazy, T const& data, size_t size) const {
+      return NodeStruct::operate(lazy, data, size);
+    }
+  };
+  struct MergeLazyFunction {
+    Lazy operator()(Lazy const& a, Lazy const& b) const {
+      return NodeStruct::merge_lazy(a, b);
+    }
+  };
+  lazy_segment_tree_from_node() = delete;
+
+ public:
+  using type = lazy_segment_tree<T, MergeFunction, Lazy, OperateFunction,
+                                 MergeLazyFunction>;
+};
 }  // namespace mrpython
 #endif
