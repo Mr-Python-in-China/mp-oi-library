@@ -103,6 +103,7 @@ class lazy_segment_tree {
         n(len),
         lazyInit(lazyInitVal),
         mergeData(mergeDataFun),
+        operate(OperateFun),
         mergeLazy(mergeTagFun) {
     build();
   }

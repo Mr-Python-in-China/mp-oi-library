@@ -19,12 +19,13 @@ TEST(lazy_segment_tree, add) {
     if (l > r) std::swap(l, r);
     assert(l < r + 1);
     if (operator_dist(gen)) {
-      int ans = std::accumulate(a.begin() + l, a.begin() + r + 1, (unsigned)0);
+      unsigned ans =
+          std::accumulate(a.begin() + l, a.begin() + r + 1, (unsigned)0);
       EXPECT_EQ(tree.get(l, r + 1), ans);
     } else {
       unsigned value = val_dist(gen);
-      for (std::size_t i = l; i < r; ++i) a[i] += value;
-      tree.set(l, r, value);
+      for (std::size_t i = l; i < r + 1; ++i) a[i] += value;
+      tree.set(l, r + 1, value);
     }
   }
 }

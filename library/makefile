@@ -2,7 +2,7 @@ STDCXX ?= c++14
 
 CXX ?= g++
 
-CXXFLAGS = -Wall -Wextra -g -I. -MMD -std=$(STDCXX)
+CXXFLAGS = -Wall -Wextra -g -I. -MMD -std=$(STDCXX) -O2
 
 TARGET = test.exe
 

@@ -30,4 +30,4 @@ jobs:
       - name: Test
         run: |
           cd library
-          ./test.exe --gtest_repeat=8
+          ./test.exe --gtest_repeat=20
