@@ -6,6 +6,7 @@
 
 - [ST 表](./library/mrpython/sparse_table.hpp)
 - [无标记线段树](./library/mrpython/typical_segment_tree.hpp)
+- [懒标记线段树](./library/mrpython/lazy_segment_tree.hpp)
 
 ## license
 
