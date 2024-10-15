@@ -22,7 +22,7 @@ template <typename T, typename MergeFunction> class typical_segment_tree {
     data.reserve(2 * n - 1), size.reserve(2 * n - 1);
     for (size_t i = n; i < 2 * n - 1; ++i) {
       size_t d = 2 * n - 1 - i;
-      size_t l = d * 2 + 1, r = d * 2;
+      size_t l = d * 2, r = d * 2 + 1;
       data.emplace_back(merge(data[2 * n - 1 - l], data[2 * n - 1 - r]));
       size.emplace_back(size[2 * n - 1 - l] + size[2 * n - 1 - r]);
     }
