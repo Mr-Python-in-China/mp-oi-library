@@ -90,5 +90,18 @@ template <typename T>
 using typical_segment_tree_max = typical_segment_tree<T, max>;
 template <typename T>
 using typical_segment_tree_min = typical_segment_tree<T, min>;
+
+template <typename NodeStruct> class typical_segment_tree_from_node {
+  using T = typename NodeStruct::T;
+  struct MergeFunction {
+    T operator()(T const& a, T const& b) const {
+      return NodeStruct::merge_data(a, b);
+    }
+  };
+  typical_segment_tree_from_node() = delete;
+
+ public:
+  using type = typical_segment_tree<T, MergeFunction>;
+};
 }  // namespace mrpython
 #endif  // MP_LIBRARY_SEGMENT_TREE_HPP
