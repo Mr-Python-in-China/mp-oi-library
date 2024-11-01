@@ -8,12 +8,17 @@ const extensionFileNoteRegex = /^\/\/ mp-oi-library extension note: file (.+)$/;
 const extensionStartNoteStr =
   '// mp-oi-library extension note: start. Do not modify this part.';
 const extensionEndNoteStr = '// mp-oi-library extension note: end';
+const extensionHeaderStr = '// mp-oi-library extension header: ';
 
 interface HeaderItem extends vscode.QuickPickItem {
   data: { content: string; dependencies: string[] };
 }
 
 export async function activate(context: vscode.ExtensionContext) {
+  const packageJson = context.extension
+    .packageJSON as typeof import('../package.json');
+  const headMessage = `library version: @${packageJson.publisher}-${packageJson.version}`;
+
   const headers = await getProcessedFileContent(context.extensionPath);
 
   const items: HeaderItem[] = Array.from(headers.entries(), ([name, dat]) => ({
@@ -65,6 +70,7 @@ export async function activate(context: vscode.ExtensionContext) {
           .edit(editBulder => {
             const v = writeIncludeToFile(
               fileContent,
+              headMessage,
               pick.selectedItems.map(x => ({
                 file: x.label,
                 content: x.data.content
@@ -155,6 +161,7 @@ function getIncludeFromFile(content: string) {
 
 function writeIncludeToFile(
   content: string,
+  headMessage: string,
   includes: { file: string; content: string }[]
 ) {
   const lines = content.split('\n');
@@ -167,6 +174,7 @@ function writeIncludeToFile(
     end,
     content: [
       extensionStartNoteStr,
+      extensionHeaderStr + headMessage,
       ...includes.map(
         x => `// mp-oi-library extension note: file ${x.file}\n${x.content}`
       ),

@@ -9,8 +9,8 @@ src/
 tsconfig.json
 webpack.config.js
 yarn.lock
-library/test/
-library/test.exe
-library/test.d
+library/
+!library/mrpython
+!library/LICENSE
 .github/
 **/*.gch
