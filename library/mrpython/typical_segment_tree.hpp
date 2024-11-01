@@ -4,6 +4,7 @@
 #ifndef MP_LIBRARY_SEGMENT_TREE_HPP
 #define MP_LIBRARY_SEGMENT_TREE_HPP
 #include <algorithm>
+#include <functional>
 #include <vector>
 
 namespace mrpython {
