@@ -15,10 +15,10 @@ class lazy_segment_tree {
   std::vector<Lazy> lazy;
   std::vector<size_t> size;
   size_t n;
-  Lazy const lazyInit;
-  MergeFunction const mergeData;
-  OperateFunction const operate;
-  MergeLazyFunction const mergeLazy;
+  Lazy lazyInit;
+  MergeFunction mergeData;
+  OperateFunction operate;
+  MergeLazyFunction mergeLazy;
   void build(void) {
     data.reserve(2 * n - 1), size.reserve(2 * n - 1);
     for (size_t i = n; i < 2 * n - 1; ++i) {

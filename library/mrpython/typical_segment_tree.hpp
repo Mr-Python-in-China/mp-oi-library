@@ -18,7 +18,7 @@ template <typename T, typename MergeFunction> class typical_segment_tree {
   std::vector<T> data;
   std::vector<size_t> size;
   size_t n;
-  MergeFunction const merge;
+  MergeFunction merge;
   void build(void) {
     data.reserve(2 * n - 1), size.reserve(2 * n - 1);
     for (size_t i = n; i < 2 * n - 1; ++i) {
