@@ -23,7 +23,7 @@ template <typename T, typename MergeFunction> class sparse_table {
  public:
   template <typename InputIterator>
   sparse_table(InputIterator first, InputIterator last,
-               MergeFunction mergeFun = MergeFunction())
+               MergeFunction const& mergeFun = MergeFunction())
       : merge(mergeFun) {
     table.emplace_back(std::vector<T>(first, last));
     size_t n = table[0].size();
@@ -47,7 +47,7 @@ template <typename T> using sparse_table_max = sparse_table<T, mrpython::max>;
 template <typename T> using sparse_table_gcd = sparse_table<T, mrpython::gcd>;
 template <typename Iterator, typename Comp>
 auto gen_iterator_sparse_table(Iterator first, Iterator last,
-                               Comp comp = Comp()) {
+                               Comp const& comp = Comp()) {
   std::vector<Iterator> dat(std::distance(first, last));
   std::iota(dat.begin(), dat.end(), first);
   return sparse_table<Iterator, compare_iterator<Comp>>(

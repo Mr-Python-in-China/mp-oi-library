@@ -33,7 +33,7 @@ struct gcd {
   }
 };
 template <typename Comp> struct compare_iterator {
-  Comp const comp;
+  Comp comp;
   compare_iterator(Comp const& c): comp(c) {}
   template <typename Iterator>
   Iterator operator()(Iterator a, Iterator b) const {
