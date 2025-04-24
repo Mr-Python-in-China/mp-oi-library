@@ -29,10 +29,10 @@ template <typename T, typename MergeFunction> class sparse_table {
     size_t n = table[0].size();
     for (size_t i = 1; ((size_t)1 << i) <= n; ++i) {
       table.emplace_back();
-      table[i].reserve(n - (1 << i) + 1);
-      for (size_t j = 0; j < n - (1 << i) + 1; ++j)
+      table[i].reserve(n - ((size_t)1 << i) + 1);
+      for (size_t j = 0; j < n - ((size_t)1 << i) + 1; ++j)
         table[i].emplace_back(
-            merge(table[i - 1][j], table[i - 1][j + (1 << (i - 1))]));
+            merge(table[i - 1][j], table[i - 1][j + ((size_t)1 << (i - 1))]));
     }
     table.shrink_to_fit();
   }

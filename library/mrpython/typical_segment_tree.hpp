@@ -1,3 +1,5 @@
+#include <cstddef>
+
 #include "mrpython/bits.hpp"
 #include "mrpython/utility.hpp"
 
@@ -56,6 +58,18 @@ template <typename T, typename MergeFunction> class typical_segment_tree {
     else
       __builtin_unreachable();
   }
+  size_t data_id_to_node_id(size_t x) {
+    x += n - ((2 * n - 1) - (highbit(2 * n - 1) - 1));
+    if (x >= n) x -= n;
+    x += n - 1;
+    return x;
+  }
+  size_t node_id_to_data_id(size_t x) {
+    x -= n - 1;
+    x += ((2 * n - 1) - (highbit(2 * n - 1) - 1));
+    if (x >= n) x -= n;
+    return x;
+  }
 
  public:
   template <typename InputIterator>
@@ -65,8 +79,8 @@ template <typename T, typename MergeFunction> class typical_segment_tree {
         size(data.size(), 1),
         n(data.size()),
         merge(mergeFun) {
-    rotate(data.begin(), data.begin() + (2 * n - 1) - (highbit(2 * n - 1) - 1),
-           data.end());
+    rotate(data.begin(),
+           data.begin() + ((2 * n - 1) - (highbit(2 * n - 1) - 1)), data.end());
     reverse(data.begin(), data.end());
     build();
   }
@@ -84,6 +98,28 @@ template <typename T, typename MergeFunction> class typical_segment_tree {
     set_impl(target, operate, 0);
   }
   T get(size_t l, size_t r) { return get_impl(l, r, 0); }
+  T getd(size_t l, size_t r, T const& e = {}) { return l == r ? e : get(l, r); }
+  template <typename Check>
+  size_t find_first_right(size_t l, Check const& check) {
+    l = data_id_to_node_id(l);
+    while (l % 2 == 1) l /= 2;
+    while (l < 2 * n - 1 && check(data[l])) l = l * 2 + 1;
+    if (l >= 2 * n - 1) return node_id_to_data_id(l / 2);
+    T v = data[l];
+    do {
+      ++l;
+      if (!(l & (l + 1))) return n;
+      while (l % 2 == 1) l /= 2;
+    } while (!check(data[l]));
+    while (l < n - 1) {
+      T vl = merge(v, data[l * 2 + 1]);
+      if (!check(vl))
+        l = l * 2 + 2, v = vl;
+      else
+        l = l * 2 + 1;
+    }
+    return node_id_to_data_id(l);
+  }
 };
 template <typename T>
 using typical_segment_tree_add = typical_segment_tree<T, std::plus<T>>;
