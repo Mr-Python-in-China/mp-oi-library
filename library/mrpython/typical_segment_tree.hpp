@@ -1,5 +1,3 @@
-#include <cstddef>
-
 #include "mrpython/bits.hpp"
 #include "mrpython/utility.hpp"
 
