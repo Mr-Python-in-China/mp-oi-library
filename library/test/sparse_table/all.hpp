@@ -1,3 +1,3 @@
-#include "sparse_table_max.cpp"
-#include "sparse_table_min.cpp"
-#include "sparse_table_gcd.cpp"
+#include "max.cpp"
+#include "min.cpp"
+#include "gcd.cpp"
