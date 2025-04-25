@@ -107,11 +107,14 @@ template <typename T, typename MergeFunction> class typical_segment_tree {
     while (l < 2 * n - 1 && check(data[l])) l = l * 2 + 1;
     if (l >= 2 * n - 1) return node_id_to_data_id(l / 2);
     T v = data[l];
-    do {
+    while (true) {
       ++l;
       if (!(l & (l + 1))) return n;
       while (l % 2 == 1) l /= 2;
-    } while (!check(data[l]));
+      T vl = merge(v, data[l]);
+      if (check(vl)) break;
+      v = vl;
+    }
     while (l < n - 1) {
       T vl = merge(v, data[l * 2 + 1]);
       if (!check(vl))
@@ -129,11 +132,14 @@ template <typename T, typename MergeFunction> class typical_segment_tree {
     while (r < 2 * n - 1 && check(data[r])) r = r * 2 + 2;
     if (r >= 2 * n - 1) return node_id_to_data_id((r - 1) / 2);
     T v = data[r];
-    do {
+    while (true) {
       if (!(r & (r + 1))) return -1;
       --r;
       while (r % 2 == 0) r = (r - 1) / 2;
-    } while (!check(data[r]));
+      T vl = merge(v, data[r]);
+      if (check(vl)) break;
+      v = vl;
+    }
     while (r < n - 1) {
       T vr = merge(v, data[r * 2 + 2]);
       if (!check(vr))
