@@ -113,12 +113,12 @@ template <typename T, typename MergeFunction> class typical_segment_tree {
       while (l % 2 == 1) l /= 2;
       T vl = merge(v, data[l]);
       if (check(vl)) break;
-      v = vl;
+      v = std::move(vl);
     }
     while (l < n - 1) {
       T vl = merge(v, data[l * 2 + 1]);
       if (!check(vl))
-        l = l * 2 + 2, v = vl;
+        l = l * 2 + 2, v = std::move(vl);
       else
         l = l * 2 + 1;
     }
@@ -138,12 +138,12 @@ template <typename T, typename MergeFunction> class typical_segment_tree {
       while (r % 2 == 0) r = (r - 1) / 2;
       T vl = merge(v, data[r]);
       if (check(vl)) break;
-      v = vl;
+      v = std::move(vl);
     }
     while (r < n - 1) {
       T vr = merge(v, data[r * 2 + 2]);
       if (!check(vr))
-        r = r * 2 + 1, v = vr;
+        r = r * 2 + 1, v = std::move(vr);
       else
         r = r * 2 + 2;
     }

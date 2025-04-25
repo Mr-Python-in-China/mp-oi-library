@@ -157,13 +157,13 @@ class lazy_segment_tree {
       while (l % 2 == 1) l /= 2;
       T vl = mergeData(v, data[l]);
       if (check(vl)) break;
-      v = vl;
+      v = std::move(vl);
     }
     while (l < n - 1) {
       pushdown(l);
       T vl = mergeData(v, data[l * 2 + 1]);
       if (!check(vl))
-        l = l * 2 + 2, v = vl;
+        l = l * 2 + 2, v = std::move(vl);
       else
         l = l * 2 + 1;
     }
@@ -184,13 +184,13 @@ class lazy_segment_tree {
       while (r % 2 == 0) r = (r - 1) / 2;
       T vl = mergeData(v, data[r]);
       if (check(vl)) break;
-      v = vl;
+      v = std::move(vl);
     }
     while (r < n - 1) {
       pushdown(r);
-      T vr = mergeData(v, data[r * 2 + 2]);
-      if (!check(vr))
-        r = r * 2 + 1, v = vr;
+      T vl = mergeData(v, data[r * 2 + 2]);
+      if (!check(vl))
+        r = r * 2 + 1, v = std::move(vl);
       else
         r = r * 2 + 2;
     }

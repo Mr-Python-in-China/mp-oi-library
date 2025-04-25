@@ -15,7 +15,7 @@ TEST(lazy_segment_tree, find_first_right) {
   std::uniform_int_distribution<unsigned long long> q_dist(
       std::numeric_limits<unsigned>::min(),
       (unsigned long long)std::numeric_limits<unsigned>::max() * n);
-  std::vector<unsigned> a(n);
+  std::vector<unsigned long long> a(n);
   std::generate(a.begin(), a.end(), [&] { return val_dist(gen); });
   mrpython::lazy_segment_tree_add_add<unsigned long long> tree(a.begin(),
                                                                a.end(), 0);
@@ -24,9 +24,9 @@ TEST(lazy_segment_tree, find_first_right) {
       std::size_t l = size_dist(gen), r = size_dist(gen);
       if (l > r) std::swap(l, r);
       assert(l < r + 1);
-      unsigned long long ans =
-          std::accumulate(a.begin() + l, a.begin() + r + 1, 0ull);
-      EXPECT_EQ(tree.get(l, r + 1), ans);
+      unsigned value = val_dist(gen);
+      for (std::size_t i = l; i < r + 1; ++i) a[i] += value;
+      tree.set(l, r + 1, value);
     } else {
       std::size_t l = size_dist(gen), v = q_dist(gen);
       size_t p = l;
@@ -36,7 +36,8 @@ TEST(lazy_segment_tree, find_first_right) {
         if (s > v) break;
         ++p;
       }
-      size_t out=tree.find_first_right(l, [&](unsigned long long x) { return x > v; });
+      size_t out =
+          tree.find_first_right(l, [&](unsigned long long x) { return x > v; });
       EXPECT_EQ(out, p);
     }
   }
@@ -53,7 +54,7 @@ TEST(lazy_segment_tree, find_last_left) {
   std::uniform_int_distribution<unsigned long long> q_dist(
       std::numeric_limits<unsigned>::min(),
       (unsigned long long)std::numeric_limits<unsigned>::max() * n);
-  std::vector<unsigned> a(n);
+  std::vector<unsigned long long> a(n);
   std::generate(a.begin(), a.end(), [&] { return val_dist(gen); });
   mrpython::lazy_segment_tree_add_add<unsigned long long> tree(a.begin(),
                                                                a.end(), 0);
@@ -62,9 +63,9 @@ TEST(lazy_segment_tree, find_last_left) {
       std::size_t l = size_dist(gen), r = size_dist(gen);
       if (l > r) std::swap(l, r);
       assert(l < r + 1);
-      unsigned long long ans =
-          std::accumulate(a.begin() + l, a.begin() + r + 1, 0ull);
-      EXPECT_EQ(tree.get(l, r + 1), ans);
+      unsigned value = val_dist(gen);
+      for (std::size_t i = l; i < r + 1; ++i) a[i] += value;
+      tree.set(l, r + 1, value);
     } else {
       std::size_t l = size_dist(gen), v = q_dist(gen);
       size_t p = l;
@@ -74,7 +75,8 @@ TEST(lazy_segment_tree, find_last_left) {
         if (s > v) break;
         --p;
       }
-      size_t out=tree.find_last_left(l, [&](unsigned long long x) { return x > v; });
+      size_t out =
+          tree.find_last_left(l, [&](unsigned long long x) { return x > v; });
       EXPECT_EQ(out, p);
     }
   }
