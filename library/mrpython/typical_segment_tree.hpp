@@ -101,6 +101,7 @@ template <typename T, typename MergeFunction> class typical_segment_tree {
   T getd(size_t l, size_t r, T const& e = {}) { return l == r ? e : get(l, r); }
   template <typename Check>
   size_t find_first_right(size_t l, Check const& check) {
+    if (l >= n) return l;
     l = data_id_to_node_id(l);
     while (l % 2 == 1) l /= 2;
     while (l < 2 * n - 1 && check(data[l])) l = l * 2 + 1;
@@ -119,6 +120,28 @@ template <typename T, typename MergeFunction> class typical_segment_tree {
         l = l * 2 + 1;
     }
     return node_id_to_data_id(l);
+  }
+  template <typename Check>
+  size_t find_last_left(size_t r, Check const& check) {
+    if (r >= n) return r;
+    r = data_id_to_node_id(r);
+    while (r && r % 2 == 0) r = (r - 1) / 2;
+    while (r < 2 * n - 1 && check(data[r])) r = r * 2 + 2;
+    if (r >= 2 * n - 1) return node_id_to_data_id((r - 1) / 2);
+    T v = data[r];
+    do {
+      if (!(r & (r + 1))) return -1;
+      --r;
+      while (r % 2 == 0) r = (r - 1) / 2;
+    } while (!check(data[r]));
+    while (r < n - 1) {
+      T vr = merge(v, data[r * 2 + 2]);
+      if (!check(vr))
+        r = r * 2 + 1, v = vr;
+      else
+        r = r * 2 + 2;
+    }
+    return node_id_to_data_id(r);
   }
 };
 template <typename T>
