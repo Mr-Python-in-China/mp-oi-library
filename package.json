@@ -2,7 +2,7 @@
   "name": "mp-oi-library",
   "displayName": "mp-oi-library",
   "description": "Some algorithms and data structures template for competitive programming.",
-  "version": "0.2.6",
+  "version": "0.3.0",
   "repository": "https://github.com/Mr-Python-in-China/mp-oi-library",
   "license": "LGPL-3.0-only",
   "author": {
