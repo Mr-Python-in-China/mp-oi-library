@@ -1,7 +1,7 @@
 #ifndef MP_LIBRARY_UTILITY_HPP
 #define MP_LIBRARY_UTILITY_HPP
 #include <algorithm>
-#include <limits>
+#include <functional>
 
 namespace mrpython {
 struct max {
