@@ -1,7 +1,8 @@
+#include "mrpython/numeric.hpp"
+
 #ifndef MP_LIBRARY_MODINT_HPP
 #define MP_LIBRARY_MODINT_HPP
 #include <iostream>
-#include <mrpython/numeric.hpp>
 #include <type_traits>
 
 namespace mrpython {
