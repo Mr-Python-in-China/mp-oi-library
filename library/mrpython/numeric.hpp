@@ -1,6 +1,7 @@
 #ifndef MP_LIBRARY_NUMERIC_HPP
 #define MP_LIBRARY_NUMERIC_HPP
 
+#include <functional>
 #include <vector>
 namespace mrpython {
 template <typename T, typename F = std::multiplies<T>>
