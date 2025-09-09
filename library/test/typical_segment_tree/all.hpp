@@ -1,4 +1,5 @@
 #include "add.cpp"
+#include "arrayhash.cpp"
 #include "max.cpp"
 #include "min.cpp"
 #include "binary_search.cpp"
