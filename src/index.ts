@@ -167,7 +167,7 @@ function writeIncludeToFile(
   const lines = content.split('\n');
   let start = lines.findIndex(x => x === extensionStartNoteStr),
     end = lines.findIndex(x => x === extensionEndNoteStr);
-  if (start === -1 || end === -1) (start = 0), (end = -1);
+  if (start === -1 || end === -1) ((start = 0), (end = -1));
   ++end;
   return {
     start,

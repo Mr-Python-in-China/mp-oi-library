@@ -77,8 +77,5 @@
     "variant": "cpp",
     "text_encoding": "cpp"
   },
-  "clangd.fallbackFlags": [
-    "-std=c++14",
-    "-I${workspaceFolder}/library"
-  ]
+  "clangd.fallbackFlags": ["-std=c++14", "-I${workspaceFolder}/library"]
 }

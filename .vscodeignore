@@ -14,3 +14,4 @@ library/
 !library/LICENSE
 .github/
 **/*.gch
+tmp/
