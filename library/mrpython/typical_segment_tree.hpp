@@ -35,7 +35,7 @@ template <typename T, typename MergeFunction> class typical_segment_tree {
       size_t d = 2 * n - 1 - i;
       size_t l = d * 2, r = d * 2 + 1;
       data.emplace_back(doMerge(data[2 * n - 1 - l], size[2 * n - 1 - l],
-                                 data[2 * n - 1 - r], size[2 * n - 1 - r]));
+                                data[2 * n - 1 - r], size[2 * n - 1 - r]));
       size.emplace_back(size[2 * n - 1 - l] + size[2 * n - 1 - r]);
     }
     std::reverse(data.begin(), data.end());
@@ -52,15 +52,15 @@ template <typename T, typename MergeFunction> class typical_segment_tree {
       set_impl(c, operate, pos * 2 + 1);
     else
       set_impl(c - m, operate, pos * 2 + 2);
-    data[pos] = doMerge(data[pos * 2 + 1], size[pos * 2 + 1],
-                         data[pos * 2 + 2], size[pos * 2 + 2]);
+    data[pos] = doMerge(data[pos * 2 + 1], size[pos * 2 + 1], data[pos * 2 + 2],
+                        size[pos * 2 + 2]);
   }
   std::pair<T, size_t> get_impl(size_t l, size_t r, size_t pos) {
     if (l == 0 && r == size[pos]) return {data[pos], size[pos]};
     size_t m = size[pos * 2 + 1];
     if (l < m && r > m)
       return doMerge(get_impl(l, m, pos * 2 + 1),
-                      get_impl(0, r - m, pos * 2 + 2));
+                     get_impl(0, r - m, pos * 2 + 2));
     else if (l < m)
       return get_impl(l, r, pos * 2 + 1);
     else if (r > m)
@@ -170,8 +170,10 @@ using typical_segment_tree_min = typical_segment_tree<T, min>;
 template <typename NodeStruct> class typical_segment_tree_from_node {
   using T = typename NodeStruct::T;
   struct MergeFunction {
-    T operator()(T const& a, T const& b) const {
-      return NodeStruct::merge_data(a, b);
+    template <typename... Args>
+    auto operator()(Args&&... args) const
+        -> decltype(NodeStruct::merge_data(std::forward<Args>(args)...)) {
+      return NodeStruct::merge_data(std::forward<Args>(args)...);
     }
   };
   typical_segment_tree_from_node() = delete;

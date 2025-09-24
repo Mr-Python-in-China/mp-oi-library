@@ -227,18 +227,24 @@ template <typename NodeStruct> class lazy_segment_tree_from_node {
   using T = typename NodeStruct::T;
   using Lazy = typename NodeStruct::Lazy;
   struct MergeFunction {
-    T operator()(T const& a, T const& b) const {
-      return NodeStruct::merge_data(a, b);
+    template <typename... Args>
+    auto operator()(Args&&... args) const
+        -> decltype(NodeStruct::merge_data(std::forward<Args>(args)...)) {
+      return NodeStruct::merge_data(std::forward<Args>(args)...);
     }
   };
   struct OperateFunction {
-    T operator()(Lazy const& lazy, T const& data, size_t size) const {
-      return NodeStruct::operate(lazy, data, size);
+    template <typename... Args>
+    auto operator()(Args&&... args) const
+        -> decltype(NodeStruct::operate(std::forward<Args>(args)...)) {
+      return NodeStruct::operate(std::forward<Args>(args)...);
     }
   };
   struct MergeLazyFunction {
-    Lazy operator()(Lazy const& a, Lazy const& b) const {
-      return NodeStruct::merge_lazy(a, b);
+    template <typename... Args>
+    auto operator()(Args&&... args) const
+        -> decltype(NodeStruct::merge_lazy(std::forward<Args>(args)...)) {
+      return NodeStruct::merge_lazy(std::forward<Args>(args)...);
     }
   };
   lazy_segment_tree_from_node() = delete;
