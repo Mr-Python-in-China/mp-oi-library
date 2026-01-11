@@ -77,5 +77,8 @@
     "variant": "cpp",
     "text_encoding": "cpp"
   },
-  "clangd.fallbackFlags": ["-std=c++14", "-I${workspaceFolder}/library"]
+  "clangd.arguments": [
+    "--compile-commands-dir=${workspaceFolder}/library/build"
+  ],
+  "cmake.sourceDirectory": "/home/mrpython/Desktop/mp-oi-library/library"
 }
