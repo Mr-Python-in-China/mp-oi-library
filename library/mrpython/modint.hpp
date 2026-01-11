@@ -74,6 +74,28 @@ template <unsigned P> class modint {
     return mrpython::fastPow(*this, n);
   }
   static constexpr unsigned modval() { return P; }
+
+  static modint linear_inv(unsigned int n) {
+    static std::vector<modint<P>> mem = {0, 1};
+    while (mem.size() <= n) {
+      unsigned int i = mem.size();
+      mem.push_back(modint<P>(P - (P / i)) * mem[P % i]);
+    }
+    return mem[n];
+  }
+  static modint frac_inv(unsigned int n) {
+    static std::vector<modint<P>> mem = {1};
+    while (mem.size() <= n) {
+      unsigned int i = mem.size();
+      mem.push_back(mem.back() * linear_inv(i));
+    }
+    return mem[n];
+  }
+  static modint comb(unsigned int n, unsigned int m) {
+    return n < m ? modint<P>(0)
+                 : frac<modint<P>>(n) * frac_inv(m) * frac_inv(n - m);
+  }
 };
+
 }  // namespace mrpython
 #endif  // MP_LIBRARY_MODINT_HPP

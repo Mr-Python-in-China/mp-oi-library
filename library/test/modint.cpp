@@ -262,6 +262,38 @@ TEST_F(ModIntTest, Power) {
   EXPECT_EQ(b.pow(MEDIUM_PRIME - 1).val(), 1);
 }
 
+TEST_F(ModIntTest, InverseHelpers) {
+  // linear_inv should behave like multiplicative inverse on [1, P)
+  for (unsigned int i = 1; i < SMALL_PRIME; ++i) {
+    auto inv = modint<SMALL_PRIME>::linear_inv(i);
+    EXPECT_EQ((inv * modint<SMALL_PRIME>(i)).val(), 1u);
+  }
+
+  // frac_inv is 1 / n!; verify by multiplying forward factorials
+  modint<SMALL_PRIME> fact = 1;
+  for (unsigned int i = 0; i <= 8; ++i) {
+    if (i > 0) fact *= modint<SMALL_PRIME>(i);
+    auto inv_fact = modint<SMALL_PRIME>::frac_inv(i);
+    EXPECT_EQ((fact * inv_fact).val(), 1u);
+  }
+}
+
+TEST_F(ModIntTest, Comb) {
+  // Small Pascal triangle slice to ensure comb matches expected values
+  const unsigned int n = 8;
+  for (unsigned int k = 0; k <= n; ++k) {
+    unsigned int expected = 1;
+    for (unsigned int i = 1; i <= k; ++i) {
+      expected = expected * (n - i + 1) / i;
+    }
+    EXPECT_EQ(modint<SMALL_PRIME>::comb(n, k).val(), expected % SMALL_PRIME);
+  }
+
+  // Zero and out-of-range cases
+  EXPECT_EQ(modint<SMALL_PRIME>::comb(0, 0).val(), 1u);
+  EXPECT_EQ(modint<SMALL_PRIME>::comb(5, 6).val(), 0u);
+}
+
 // Test edge cases and miscellaneous functionality
 TEST_F(ModIntTest, EdgeCases) {
   // Test modval() static method
