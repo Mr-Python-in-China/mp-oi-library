@@ -11,5 +11,7 @@
     "esModuleInterop": true,
     "noImplicitAny": true,
     "resolveJsonModule": true
-  }
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist", "library"]
 }
